@@ -1,0 +1,202 @@
+int ledVerde2= 2;  //semaforo arriba verde
+int ledAmarillo2= 3;  //semaforo arriba amarillo
+int ledRojo2= 4;  //semaforo arriba rojo
+int ledVerdePeatones2= 5;  //semaforo arriba verde peatones
+int ledRojoPeatones2= 6;  //semaforo arriba rojo peatones
+
+int ledVerde1 = 7;  //semaforo izquierda verde
+int ledAmarillo1 = 8;  //semaforo izquierda amarillo
+int ledRojo1 = 9;  //semaforo izquierda rojo
+
+int ledVerde3 = 10;  //semaforo derecha verde
+int ledAmarillo3 = 11;  //semaforo derecha amarillo
+int ledRojo3 = 12;  //semaforo derecha rojo
+int ledVerdePeatones3 = 14;  //semaforo derecha verde peatones
+int ledRojoPeatones3 = 15;  //semaforo derecha rojo peatones
+
+int tVerdeEncendido= 5000;  //tiempo encendido semaforo verde
+int tAmarilloEncendido= 3000;  //tiempo encendido semaforo amarillo
+int tRojoEncendido= 5000;  //tiempo encendido semaforo rojo
+
+int lectorLuz = 16;  //lecor de luz
+int valorLuz = analogRead (lectorLuz);
+
+int estado2; //estado del pulsador del semáforo 2
+int botonSem2 = 17; //boton del semaforo 3
+
+void setup() {
+ pinMode(ledVerde2, OUTPUT);      
+ pinMode(ledAmarillo2, OUTPUT);  
+ pinMode(ledRojo2, OUTPUT);  
+ pinMode(ledVerdePeatones2, OUTPUT);
+ pinMode(ledRojoPeatones2, OUTPUT);
+ pinMode(ledVerde1, OUTPUT);
+ pinMode(ledAmarillo1, OUTPUT);
+ pinMode(ledRojo1, OUTPUT);
+ pinMode(ledVerde3, OUTPUT);
+ pinMode(ledAmarillo3, OUTPUT);
+ pinMode(ledRojo3, OUTPUT);
+ pinMode(ledVerdePeatones3, OUTPUT);
+ pinMode(ledRojoPeatones3, OUTPUT);
+ pinMode(lectorLuz, INPUT);
+ Serial.begin(9600);
+ rojoEncendido();
+ delay(3000);
+}
+
+void loop(){
+  int valorLuz = analogRead(lectorLuz);
+  Serial.println(valorLuz);
+  
+  if (valorLuz >= 200) {  //  MODO DE NOCHE
+    Serial.println ("¡Es de noche!");
+    pulsador2();
+    apagarTodo();
+    parpadeoAmarilloNoche();
+    pulsador2();
+  }
+    
+    else {   //  MODO DE DIA
+    Serial.println ("¡Es de dia!");
+  pulsador2();
+  apagarTodo();
+  encenderSemaforoVerde2();
+  pulsador2();
+  apagarTodo();
+  encenderSemaforo3();
+  pulsador2();
+  apagarTodo();
+  encenderSemaforo1();
+  }
+}
+
+//void para hacer el código más comprimido, apagando todas las luces de todos los leds
+void apagarTodo() {
+  digitalWrite(ledVerde2, LOW);      
+ digitalWrite(ledAmarillo2, LOW);  
+ digitalWrite(ledRojo2, LOW);  
+ digitalWrite(ledVerdePeatones2, LOW);
+ digitalWrite(ledRojoPeatones2, LOW);
+ digitalWrite(ledVerde1, LOW);
+ digitalWrite(ledAmarillo1, LOW);
+ digitalWrite(ledRojo1, LOW);
+ digitalWrite(ledVerde3, LOW);
+ digitalWrite(ledAmarillo3, LOW);
+ digitalWrite(ledRojo3, LOW);
+ digitalWrite(ledVerdePeatones3, LOW);
+ digitalWrite(ledRojoPeatones3, LOW); 
+}
+//void para encender el verde del semaforo para ir de Mahon a Alaior
+void encenderSemaforoVerde2() {
+  digitalWrite(ledVerde2, HIGH);
+  digitalWrite(ledRojo3, HIGH);
+  digitalWrite(ledRojo1, HIGH);
+
+  digitalWrite(ledRojoPeatones2, HIGH);
+  digitalWrite(ledVerdePeatones3, HIGH);
+
+  delay(tVerdeEncendido);  //esperar 3segundos, encender led amarillo
+ //sistema de alumbrado intercalado en encendido y apagado del led amarillo
+  digitalWrite (ledAmarillo2, HIGH);
+  for (int i=0; i < 5; i++) {
+  digitalWrite(ledAmarillo2, HIGH);
+  delay(tAmarilloEncendido / 10);                
+  digitalWrite(ledAmarillo2,LOW);    
+  delay(tAmarilloEncendido / 10);
+  digitalWrite(ledAmarillo2, LOW);
+}
+  
+}
+//void para encender el verde la llegada de los coches de Canutells a Alaior
+void encenderSemaforo3(){
+  digitalWrite(ledVerde3,HIGH);
+  digitalWrite(ledRojo2, HIGH);
+  digitalWrite(ledRojo1, HIGH);
+
+  digitalWrite(ledVerdePeatones2, HIGH);
+  digitalWrite(ledRojoPeatones3, HIGH);
+ 
+  delay(tVerdeEncendido);
+
+  digitalWrite (ledAmarillo3, HIGH);
+  for (int i=0; i < 5; i++) {
+  digitalWrite(ledAmarillo3, HIGH);
+  delay(tAmarilloEncendido / 10);                
+  digitalWrite(ledAmarillo3,LOW);    
+  delay(tAmarilloEncendido / 10);
+  digitalWrite(ledAmarillo3, LOW);
+  }
+  
+}
+//void para encender en verde el semaforo para ir de Alaior a Mahon
+void encenderSemaforo1(){
+  digitalWrite(ledVerde1,HIGH);
+  digitalWrite(ledRojo2, HIGH);
+  digitalWrite(ledRojo3, HIGH);
+  
+  digitalWrite(ledRojoPeatones2, HIGH);
+  digitalWrite(ledRojoPeatones3, HIGH);
+  delay(tVerdeEncendido);
+
+  digitalWrite (ledAmarillo1, HIGH);
+  for (int i=0; i < 5; i++) {
+  digitalWrite(ledAmarillo1, HIGH);
+  delay(tAmarilloEncendido / 10);                
+  digitalWrite(ledAmarillo1,LOW);    
+  delay(tAmarilloEncendido / 10);
+  digitalWrite(ledAmarillo1, LOW);
+  }
+}
+
+void rojoEncendido() {  //encender todos los rojos
+  digitalWrite (ledRojo1, HIGH);
+  digitalWrite (ledRojo2, HIGH);
+  digitalWrite (ledRojo3, HIGH);
+  digitalWrite (ledRojoPeatones2, HIGH);
+  digitalWrite (ledRojoPeatones3, HIGH);
+  delay(3000);
+}
+
+void parpadeoAmarilloNoche () {
+  for (int i=0; i < 15; i++) {
+  digitalWrite(ledAmarillo1, HIGH);
+  digitalWrite(ledAmarillo2, HIGH);
+  digitalWrite(ledAmarillo3, HIGH);
+  delay(tAmarilloEncendido / 5);                
+  digitalWrite(ledAmarillo1,LOW); 
+  digitalWrite(ledAmarillo2, LOW);
+  digitalWrite(ledAmarillo3, LOW);
+  delay(tAmarilloEncendido / 5);
+  }
+}
+  
+void pulsador2 () {
+  if (valorLuz >= 200) {  //  PULSADOR MODO NOCHE
+     estado2 = digitalRead(botonSem2);
+     Serial.println(estado2);
+     if (estado2 == HIGH) {
+       apagarTodo;
+       rojoEncendido;
+       digitalWrite(ledVerdePeatones2, HIGH);
+       digitalWrite(ledVerdePeatones3, HIGH);
+       digitalWrite(ledRojoPeatones2, LOW);
+       digitalWrite(ledRojoPeatones3,LOW);
+       delay(5000);
+     }
+     else (estado2 == LOW);
+       delay(1);
+     }
+  else {  //  PULSADOR MODO DIA
+     estado2 = digitalRead(botonSem2);
+     Serial.println(estado2);
+     if (estado2 = HIGH) {
+       tVerdeEncendido = 2500;
+       tAmarilloEncendido = 1500;
+       tRojoEncendido = 2500;
+     }
+     else;
+       tVerdeEncendido = 5000;
+       tAmarilloEncendido = 3000;
+       tRojoEncendido = 5000;
+    }
+  }
