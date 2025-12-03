@@ -1,0 +1,53 @@
+int ledAzul = 2;
+int ledVerde = 4;
+int ledRojo = 3;
+
+void setup() {
+  pinMode(ledRojo, OUTPUT);
+  pinMode(ledAzul, OUTPUT);
+  pinMode(ledVerde, OUTPUT);
+}
+
+void loop() {
+  //led ROJO
+  analogWrite(ledRojo, 255);
+  analogWrite(ledAzul, 0);
+  analogWrite(ledVerde, 0);
+  delay(2000);
+
+  //led Azul
+  analogWrite(ledRojo, 0);
+  analogWrite(ledAzul, 255);
+  analogWrite(ledVerde, 0);
+  delay(2000);
+
+  //led Verde
+  analogWrite(ledRojo, 0);
+  analogWrite(ledAzul, 0);
+  analogWrite(ledVerde, 255);
+  delay(2000);
+
+  //led Cian
+  analogWrite(ledRojo, 0);
+  analogWrite(ledAzul, 255);
+  analogWrite(ledVerde, 255);
+  delay(2000);
+
+  //led Amarillo
+  analogWrite(ledRojo, 255);
+  analogWrite(ledAzul, 0);
+  analogWrite(ledVerde, 255);
+  delay(2000);
+
+  //led Rosa
+  analogWrite(ledRojo, 255);
+  analogWrite(ledAzul, 255);
+  analogWrite(ledVerde, 0);
+  delay(2000);
+
+  //led Morado
+  analogWrite(ledRojo, 150);
+  analogWrite(ledAzul, 255);
+  analogWrite(ledVerde, 0);
+  delay(2000);
+}
