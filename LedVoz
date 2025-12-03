@@ -3,14 +3,14 @@ int leds[] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
 
 void setup() {
-  for (int i = 0; i < 10; i++){
+  Serial.begin(9600);
+  for (int i = 0; i < 9; i++){
         pinMode(leds[i], OUTPUT);
       }
 }
 
 
 void loop() {
-   Serial.begin(9600);
   int valorSonido = analogRead(sensorSonido);
   Serial.println("Valor del sonido: ");
   Serial.println(valorSonido);
