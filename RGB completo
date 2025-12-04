@@ -1,0 +1,60 @@
+int ledAzul = 3;
+int ledVerde = 6;
+int ledRojo = 5;
+
+void setup() {
+  pinMode(ledRojo, OUTPUT);
+  pinMode(ledAzul, OUTPUT);
+  pinMode(ledVerde, OUTPUT);
+}
+
+void loop() {
+  // CAMBIOS DE COLOR
+    for (int repeats = 0; repeats <= 5; repeats++) {
+    analogWrite(ledRojo, 255);
+    analogWrite(ledVerde, 0);
+    analogWrite(ledAzul, 0);
+    delay(200);
+    analogWrite(ledRojo, 0);
+    analogWrite(ledVerde, 255);
+    analogWrite(ledAzul, 0);
+    delay(200);
+    analogWrite(ledRojo, 0);
+    analogWrite(ledVerde, 0);
+    analogWrite(ledAzul, 255);
+    delay(200);
+    analogWrite(ledRojo, 150);
+    analogWrite(ledVerde, 0);
+    analogWrite(ledAzul, 255);
+    delay(200);
+    analogWrite(ledRojo, 150);
+    analogWrite(ledVerde, 255);
+    analogWrite(ledAzul, 0);
+    delay(200);
+    }
+
+  // FADE ROJO
+  for (int fadeRojo = 0; fadeRojo <= 255; fadeRojo++) {
+    analogWrite(ledRojo, fadeRojo);
+    analogWrite(ledVerde, 0);
+    analogWrite(ledAzul, 0);
+    delay(25);
+  }
+
+  // FADE VERDE
+  for (int fadeVerde = 0; fadeVerde <= 255; fadeVerde++) {
+    analogWrite(ledRojo, 0);
+    analogWrite(ledVerde, fadeVerde);
+    analogWrite(ledAzul, 0);
+    delay(25);
+  }
+
+
+  // cambio de colores
+  for (int fadeArco = 0; fadeArco <= 255; fadeArco++) {
+      analogWrite(ledRojo, 0 + fadeArco);
+      analogWrite(ledVerde, 255 - fadeArco);
+      analogWrite(ledAzul, 0);
+      delay(50);
+    }
+  }
