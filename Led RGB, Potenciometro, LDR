@@ -1,0 +1,42 @@
+int ledAzul = 3;
+int ledVerde = 6;
+int ledRojo = 5;
+
+void setup() {
+  pinMode(A0, INPUT);
+  pinMode(A2, INPUT);
+  Serial.begin(9600);
+  pinMode(ledRojo, OUTPUT);
+  pinMode(ledAzul, OUTPUT);
+  pinMode(ledVerde, OUTPUT);
+}
+
+void loop () {
+  int valorLDR = analogRead(A2);
+  int valorPot = analogRead(A0);
+
+  if (valorPot = 0){
+  valorLDR = map (valorLDR, 0, 1023, 0, 255);
+  Serial.println("Valor Mapeado LDR: ");
+  Serial.println(valorLDR);
+  delay(0);
+
+    if (valorLDR <= 150){
+    analogWrite(ledRojo, 255 - valorLDR);
+    analogWrite(ledVerde, 0);
+    analogWrite(ledAzul, 0 + valorLDR);
+    delay(20);
+    }
+    else {
+    analogWrite(ledRojo, 0 + valorLDR);
+    analogWrite(ledVerde, 0);
+    analogWrite(ledAzul, 255 - valorLDR);
+    delay(20);
+    }
+  }
+  else (valorPot > 0){
+    valorPot = map (valorPot, 0, 1023, 0, 255);
+    analogWrite(ledRojo, valorPot);
+   
+  }
+}
